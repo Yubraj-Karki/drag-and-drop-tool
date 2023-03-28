@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Loader from "../components/Loader";
+import Draggable from "./Draggable";
 
 const ComponentsBar = () => {
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {}, []);
+  const [components, setComponents] = useState([
+    { type: "button", label: "Button" },
+    { type: "input", label: "Input" },
+    { type: "text", label: "Text" },
+    { type: "image", label: "Image" },
+  ]);
+
   return (
     <div className="bg-[#FFF] p-5 h-full w-full">
       <h3 className="font-medium text-[19px] text-[#1F1E1E] mb-[20px]">
@@ -14,42 +21,15 @@ const ComponentsBar = () => {
       ) : (
         <>
           <div className="components grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
-            <div
-              draggable
-              class="bg-white p-4 border-gray-200 border-2 cursor-pointer"
-            >
-              image
-            </div>
+            {components.map((component) => {
+              return (
+                <Draggable type={component.type} data={component}>
+                  <div className="bg-white p-4 border-gray-200 border-2 cursor-pointer">
+                    {component.label}
+                  </div>
+                </Draggable>
+              );
+            })}
           </div>
         </>
       )}
