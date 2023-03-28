@@ -53,15 +53,25 @@ const Canvas = () => {
 
     const newComponent = data;
 
-    console.log(data, "data from handle drop");
+    console.log(newComponent, "newComponent handle drop");
     setGridLayout((prevLayout) => [...prevLayout, newItem]);
     setComponents((prevComponent) => [...prevComponent, newComponent]);
+  };
+
+  const handleGridItemClick = (e) => {
+    console.log(e, "from handleGridItemClick");
+    console.log("item clicked");
   };
 
   const renderItems = () => {
     return gridLayout.map((item, index) => (
       <div key={item.i}>
-        <GridItem data={components[index]} data-grid={item} />
+        <GridItem
+          onClick={handleGridItemClick}
+          key={item.i}
+          data={components[index]}
+          data-grid={item}
+        />
       </div>
     ));
   };

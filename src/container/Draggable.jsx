@@ -6,7 +6,7 @@ const Draggable = ({ type, data, children }) => {
   };
 
   return (
-    <div draggable onDragStart={handleDragStart}>
+    <div draggable resizable={true} onDragStart={handleDragStart}>
       {children}
     </div>
   );

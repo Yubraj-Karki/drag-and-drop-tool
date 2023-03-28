@@ -4,11 +4,22 @@ import Draggable from "./Draggable";
 
 const ComponentsBar = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [style, setStyle] = useState({
+    height: 10,
+    width: 100,
+    color: "white",
+    bgColor: "blue",
+    padding: 5,
+  });
   const [components, setComponents] = useState([
-    { type: "button", label: "Button" },
-    { type: "input", label: "Input" },
-    { type: "text", label: "Text" },
-    { type: "image", label: "Image" },
+    {
+      id: 1,
+      type: "button",
+      label: "Button",
+    },
+    { id: 2, type: "input", label: "Input" },
+    { id: 3, type: "text", label: "Text" },
+    { id: 4, type: "image", label: "Image" },
   ]);
 
   return (
@@ -23,8 +34,12 @@ const ComponentsBar = () => {
           <div className="components grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {components.map((component) => {
               return (
-                <Draggable type={component.type} data={component}>
-                  <div className="bg-white p-4 border-gray-200 border-2 cursor-pointer">
+                <Draggable
+                  key={component.id}
+                  type={component.type}
+                  data={component}
+                >
+                  <div className="bg-white p-2 text-center border-gray-200 border-2 cursor-pointer">
                     {component.label}
                   </div>
                 </Draggable>
