@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiElementReducer from "../slices/uiElement";
 import uiStylingReducer from "../slices/uiStyling";
+import styleBarSliceReducer from "../slices/styleBarSlice";
 // import { styleUi } from "../slices/uiStyling";
 
 export const store = configureStore({
   reducer: {
     uiElement: uiElementReducer,
     uiStyling: uiStylingReducer,
+    styleBarSlice: styleBarSliceReducer,
   },
 });
 

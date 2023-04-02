@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import StyleInput from "../components/StyleInput";
 import Loader from "../components/Loader";
 import { all } from "axios";
@@ -30,19 +30,18 @@ const StyleBar = () => {
     e.preventDefault();
 
     if (style.label && style.height && style.width && style.color) {
-      const newStyle = { ...style, id: new Date().getTime.toString() };
+      const newStyle = { ...style, id: new Date().getTime().toString() };
       setAllStyles([...allStyles, newStyle]);
 
-      dispatch(addStyle(allStyles));
+      dispatch(addStyle([...allStyles, newStyle]));
 
       setStyle({ label: "", height: "", width: "", color: "" });
     }
   };
 
-  // dispatch(styleUi({ index: 0, property: "color", value: "red" }));
-  // console.log(style, "style");
+  const styles = useSelector((state) => state.styleBarSlice.style);
 
-  console.log(allStyles, "all styles");
+  console.log(styles, "styles");
 
   return (
     <div className="bg-[#FFF] p-5 h-full w-full">
@@ -84,6 +83,7 @@ const StyleBar = () => {
         />
         <button type="submit">Apply</button>
       </form>
+      <h1>{styles && styles[0] && styles[0].color}</h1>
     </div>
   );
 };

@@ -9,7 +9,7 @@ export const styleBarSlice = createSlice({
   initialState,
   reducers: {
     addStyle: (state, action) => {
-      console.log(action.payload, "from styleBarslice");
+      state.style = action.payload;
     },
   },
 });
