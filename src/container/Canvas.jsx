@@ -30,6 +30,7 @@ const Canvas = () => {
     e.preventDefault();
     setDraggingOverGrid(false);
   };
+
   const handleDrop = (e) => {
     e.preventDefault();
     const type = e.dataTransfer.getData("type"); // get the transferred HTML data
@@ -38,13 +39,17 @@ const Canvas = () => {
     const { clientX, clientY } = e;
     const { top, left } = e.currentTarget.getBoundingClientRect();
     const x = clientX - left;
-    const y = clientY - top;
+    const y = clientY - top + e.currentTarget.scrollTop;
 
-    console.log("calculated y", Math.floor((e.nativeEvent.offsetY + 15) / 30));
+    console.log("calculated y", y);
+    console.log("calculated x", x);
+
     const newItem = {
       i: Math.random().toString(36).substring(7),
-      x: Math.round(x / 100) * 2,
-      y: Math.floor((e.nativeEvent.offsetY + 15) / 40),
+      // x: Math.round(x / 100) * 2,
+      // y: Math.floor((e.nativeEvent.offsetY + 15) / 40),
+      x: x,
+      y: y,
       w: 4,
       h: 2,
       type: type,

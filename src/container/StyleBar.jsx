@@ -1,19 +1,89 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import StyleInput from "../components/StyleInput";
 import Loader from "../components/Loader";
+import { all } from "axios";
+import { addStyle } from "../slices/styleBarSlice";
 
 const StyleBar = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [style, setStyle] = useState({
+    label: "",
+    height: "",
+    width: "",
+    color: "",
+  });
+
+  const [allStyles, setAllStyles] = useState([]);
+
+  // Accessing the input field values
+  const { label, height, width, color } = style;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setStyle({ ...style, [name]: value });
+  };
+
+  const handleStyleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (style.label && style.height && style.width && style.color) {
+      const newStyle = { ...style, id: new Date().getTime.toString() };
+      setAllStyles([...allStyles, newStyle]);
+
+      dispatch(addStyle(allStyles));
+
+      setStyle({ label: "", height: "", width: "", color: "" });
+    }
+  };
+
+  // dispatch(styleUi({ index: 0, property: "color", value: "red" }));
+  // console.log(style, "style");
+
+  console.log(allStyles, "all styles");
+
   return (
     <div className="bg-[#FFF] p-5 h-full w-full">
       <h3 className="font-medium text-[19px] text-[#1F1E1E] mb-[20px]">
         Styles
       </h3>
-      <StyleInput label="Label" inputType="text" isLoading={isLoading} />
-      <StyleInput label="Height" inputType="number" isLoading={isLoading} />
-      <StyleInput label="Width" inputType="number" isLoading={isLoading} />
+      <form onSubmit={(e) => handleStyleFormSubmit(e)} action="post">
+        <StyleInput
+          onChange={handleInputChange}
+          name="label"
+          label="label"
+          inputType="text"
+          isLoading={isLoading}
+          value={label}
+        />
+        <StyleInput
+          onChange={handleInputChange}
+          name="height"
+          label="height"
+          inputType="number"
+          isLoading={isLoading}
+          value={height}
+        />
+        <StyleInput
+          onChange={handleInputChange}
+          name="width"
+          label="width"
+          inputType="number"
+          isLoading={isLoading}
+          value={width}
+        />
+        <StyleInput
+          onChange={handleInputChange}
+          name="color"
+          label="color"
+          inputType="text"
+          isLoading={isLoading}
+          value={color}
+        />
+        <button type="submit">Apply</button>
+      </form>
     </div>
   );
 };
