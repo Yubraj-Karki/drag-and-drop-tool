@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StyleInput from "../components/StyleInput";
 import Loader from "../components/Loader";
 import { all } from "axios";
-import { addStyle } from "../slices/styleBarSlice";
+import { styleComponent } from "../slices/uiElement";
 
 const StyleBar = () => {
   const dispatch = useDispatch();
@@ -30,12 +30,12 @@ const StyleBar = () => {
     e.preventDefault();
 
     if (style.label && style.height && style.width && style.color) {
-      const newStyle = { ...style, id: new Date().getTime().toString() };
-      setAllStyles([...allStyles, newStyle]);
+      const newStyle = { ...style };
+      // setAllStyles([...allStyles, newStyle]);
 
-      dispatch(addStyle([...allStyles, newStyle]));
+      dispatch(styleComponent([newStyle], 1));
 
-      setStyle({ label: "", height: "", width: "", color: "" });
+      // setStyle({ label: "", height: "", width: "", color: "" });
     }
   };
 

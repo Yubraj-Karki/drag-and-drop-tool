@@ -15,7 +15,8 @@ const ComponentsBar = () => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "https://6420844925cb6572104afd56.mockapi.io/api/v1/uielements/"
+          // "https://6420844925cb6572104afd56.mockapi.io/api/v1/uielements/"
+          "https://642990925a40b82da4d5a9b0.mockapi.io/api/v1/uielements/"
         );
         const data = response.data;
         dispatch(getUIElement(data));
@@ -47,11 +48,7 @@ const ComponentsBar = () => {
             {uiElements &&
               uiElements.items.map((component) => {
                 return (
-                  <Draggable
-                    key={component.id}
-                    type={component.type}
-                    data={component}
-                  >
+                  <Draggable type={component.type} data={component}>
                     <div className="bg-white p-2 text-center border-gray-200 border-2 cursor-pointer">
                       {component.label}
                     </div>

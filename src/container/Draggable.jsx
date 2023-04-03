@@ -13,19 +13,8 @@ const Draggable = ({ type, data, children }) => {
     e.dataTransfer.setData("data", JSON.stringify(data));
   };
 
-  const updateUi = () => {
-    dispatch(styleUi({ index: 0, property: "color", value: "red" }));
-    console.log(style, "style");
-  };
-
   return (
-    <div
-      style={style}
-      onClick={updateUi}
-      draggable
-      resizable={true}
-      onDragStart={handleDragStart}
-    >
+    <div style={style} draggable resizable={true} onDragStart={handleDragStart}>
       {children}
     </div>
   );

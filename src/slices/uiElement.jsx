@@ -11,9 +11,17 @@ export const counterSlice = createSlice({
     getUIElement: (state, action) => {
       state.items = action.payload;
     },
+    styleComponent: (state, action) => {
+      const component = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+
+      console.log(action, "action here");
+      component && (component.style = action.payload.style);
+    },
   },
 });
 
-export const { getUIElement } = counterSlice.actions;
+export const { getUIElement, styleComponent } = counterSlice.actions;
 
 export default counterSlice.reducer;

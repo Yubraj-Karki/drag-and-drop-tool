@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import GridLayout from "react-grid-layout";
 import GridItem from "../components/GridItem";
 
@@ -8,9 +9,14 @@ const Canvas = () => {
     // { i: "item2", x: 2, y: 0, w: 2, h: 4 },
     // { i: "item3", x: 4, y: 0, w: 2, h: 6 },
   ]);
-
+  const [selectedComponent, setSelectedComponent] = useState();
   const [components, setComponents] = useState([]);
   const [draggingOverGrid, setDraggingOverGrid] = useState(false);
+
+  // const styles = useSelector((state) => state.styleBarSlice.style);
+  // const uiComponents = useSelector((state) => state.uiElement.items);
+
+  const uiElements = useSelector((state) => state.uiElement);
 
   const handleLayoutChange = (newLayout) => {
     setGridLayout(newLayout);
@@ -63,16 +69,29 @@ const Canvas = () => {
     setComponents((prevComponent) => [...prevComponent, newComponent]);
   };
 
-  const handleGridItemClick = (e) => {
-    console.log(e, "from handleGridItemClick");
-    console.log("item clicked");
+  const handleGridItemClick = (id) => {
+    console.log(id, "from handleGridItemClick");
+    let component = gridLayout.find((item) => item.i === id);
+    console.log(component);
+    setSelectedComponent(component);
   };
+
+  const getStyledComponents = () => {
+    const tempComponents = [...components];
+    const styledComponents = tempComponents.map((component) => {
+      return { ...component, style: {} };
+    });
+  };
+
+  getStyledComponents();
+
+  console.log(gridLayout, "Grid layout");
 
   const renderItems = () => {
     return gridLayout.map((item, index) => (
       <div key={item.i}>
         <GridItem
-          onClick={handleGridItemClick}
+          onClick={() => handleGridItemClick(item.i)}
           key={item.i}
           data={components[index]}
           data-grid={item}
